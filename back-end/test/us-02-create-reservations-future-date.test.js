@@ -50,6 +50,7 @@ describe("US-02 - Create reservations future date", () => {
 
       const response = await request(app)
         .post("/reservations")
+
         .set("Accept", "application/json")
         .send({ data });
 

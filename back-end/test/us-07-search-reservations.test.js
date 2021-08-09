@@ -27,6 +27,7 @@ describe("US-07 - Search reservation by phone number", () => {
 
       expect(response.body.error).toBeUndefined();
       expect(response.body.data).toHaveLength(2);
+
     });
 
     test("returns empty list for non-existent phone number", async () => {
