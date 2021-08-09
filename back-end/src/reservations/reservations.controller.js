@@ -78,6 +78,7 @@
      });
    }
  
+   //check time
    const timeReg = /\d\d:\d\d/;
    const time = newReservation.reservation_time;
    if (!time.match(timeReg)) {
@@ -87,6 +88,7 @@
      });
    }
  
+   // check people is valid
    const people = newReservation.people;
    if (typeof people !== "number" || people < 1 ) {
      return next({
@@ -194,6 +196,12 @@
  
  //CRUD operation
 
+ /**
+  * Create reservation 
+  * @param {*} req 
+  * @param {*} res 
+  * @param {*} next 
+  */
  async function create(req, res, next) {
    const reservation = req.body.data;
    const data = await service.create(reservation);
@@ -201,6 +209,12 @@
    res.status(201).json({ data });
  }
  
+ /**
+  * read reservation
+  * @param {} req 
+  * @param {*} res 
+  * @param {*} next 
+  */
  async function read(req, res, next) {
    const data = res.locals.reservation;
    //console.log("read")
@@ -208,6 +222,11 @@
    res.json({ data });
  }
  
+ /**
+  * update reservation by status
+  * @param {} req 
+  * @param {*} res 
+  */
  async function updateReservationStatus(req, res) {
    const { reservation_id } = req.params;
    const { status } = req.body.data;
@@ -217,6 +236,12 @@
    res.json({ data });
  }
  
+ /**
+  * update reservation
+  * @param {*} req 
+  * @param {*} res 
+  * @param {*} next 
+  */
  async function update(req, res, next) {
    //console.log("update function");
   const updatedReservation = {...req.body.data};

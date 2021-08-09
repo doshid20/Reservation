@@ -60,12 +60,17 @@ async function validateNewTable(req, res, next) {
   next();
 }
 
-// ====================================================== //
+/**
+ * if table exist
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
 
 async function tableExists(req, res, next) {
   const { tableId } = req.params;
 
-  // const foundTable = tables.find((table) => table.table_id === Number(tableId));
   const foundTable = await service.read(Number(tableId));
   if (!foundTable) {
     return next({
@@ -78,8 +83,13 @@ async function tableExists(req, res, next) {
   next(); // next stop: 'validateSeatReservations()'
 }
 
-// ====================================================== //
-
+/**
+ * is table occupied
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
 function tableIsOccupied(req, res, next) {
   const table = res.locals.table;
   if (table.reservation_id === null) {
@@ -92,8 +102,13 @@ function tableIsOccupied(req, res, next) {
   next();
 }
 
-// ====================================================== //
-
+/**
+ * validate seat reservation
+ * @param {v} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
 async function validateSeatReservation(req, res, next) {
   // check for 'data' property
   if (req.body.data === undefined) {
@@ -153,14 +168,24 @@ async function validateSeatReservation(req, res, next) {
   next();
 }
 
-
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 async function list(req, res, next) {
   const data = await service.list();
   res.json({ data });
 }
 
 
-
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 async function create(req, res, next) {
   const newTable = res.locals.newTable;
 
@@ -169,8 +194,12 @@ async function create(req, res, next) {
   res.status(201).json({ data });
 }
 
-// ====================================================== //
-
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 async function seatReservation(req, res, next) {
   const { reservation_id } = req.body.data;
   const { table } = res.locals;
@@ -182,8 +211,12 @@ async function seatReservation(req, res, next) {
   res.json({ data });
 }
 
-// ====================================================== //
-
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 async function freeTable(req, res, next) {
   const table = res.locals.table;
   const reservation_id = table.reservation_id;
@@ -197,7 +230,6 @@ async function freeTable(req, res, next) {
   res.json({ data });
 }
 
-// ====================================================== //
 
 module.exports = {
   list: [asyncErrorBoundary(list)],
