@@ -7,7 +7,6 @@
 
  // display list by mobile search or date
  async function list(req, res, next) {
-  console.log("list");
    const { mobile_number } = req.query;
    if (mobile_number) {
      const results = await service.search(mobile_number);
@@ -57,17 +56,17 @@
        message: `Following props are missing: ${isPropsMissing.join(", ")}`,
      });
    }
- 
-   for (let property in newReservation) {
-     if (property !== "people" && property !== "reservation_id") {
-       if (!newReservation[property].length) {
-         return next({
-           status: 400,
-           message: `${property} cannot be empty. ${property}: ${newReservation[property]}`,
-         });
-       }
-     }
-   }
+
+  for (let property in newReservation) {
+    if (property !== "people" && property !== "reservation_id") {
+      if (newReservation[property] && !newReservation[property].length) {
+        return next({
+          status: 400,
+          message: `${property} cannot be empty. ${property}: ${newReservation[property]}`,
+        });
+      }
+    }
+  }
  
    //check reservation date is valid
    const timeStamp = Date.parse(newReservation.reservation_date);
@@ -187,7 +186,7 @@
    if (res.locals.reservation.status === "finished") {
      return next({
        status: 400,
-       message: `This reservation has been finished and cannot be updated.`,
+       message: `Reservation has been finished and cannot be updated.`,
      });
    }
  
@@ -243,15 +242,13 @@
   * @param {*} next 
   */
  async function update(req, res, next) {
-   //console.log("update function");
   const updatedReservation = {...req.body.data};
   const { reservation_id } = req.params;
   const data = await service.update(reservation_id, {...updatedReservation});
-  console.log("data", data);
-    //res.json({ data: {hello: "world"} });
+  res.json({ data: data });
 
  }
- 
+ //module export
  module.exports = {
    list: [asyncErrorBoundary(list)],
    create: [ hasNewReservationWithValidProperties, asyncErrorBoundary(create)],
