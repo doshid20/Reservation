@@ -4,11 +4,11 @@ const service = require("./tables.service");
 const reservationsService = require("../reservations/reservations.service");
 
 async function validateNewTable(req, res, next) {
-  // check that 'data' property is present
+  // check that 'data' is present
   if (!req.body.data) {
     return next({
       status: 400,
-      message: "Request body must have a 'data' property.",
+      message: "Request body must have a 'data'",
     });
   }
 
@@ -26,7 +26,7 @@ async function validateNewTable(req, res, next) {
   if (tableData.table_name === "") {
     return next({
       status: 400,
-      message: "'table_name' cannot be empty",
+      message: "'table_name' should not be empty",
     });
   }
 
@@ -75,12 +75,12 @@ async function tableExists(req, res, next) {
   if (!foundTable) {
     return next({
       status: 404,
-      message: `Table ${tableId} not found.`,
+      message: `Table with id - ${tableId} not found.`,
     });
   }
 
   res.locals.table = foundTable;
-  next(); // next stop: 'validateSeatReservations()'
+  next(); 
 }
 
 /**
@@ -110,11 +110,11 @@ function tableIsOccupied(req, res, next) {
  * @returns 
  */
 async function validateSeatReservation(req, res, next) {
-  // check for 'data' property
+  // check for 'data'
   if (req.body.data === undefined) {
     return next({
       status: 400,
-      message: "Request body must have a 'data' property.",
+      message: "Request body must have a 'data'",
     });
   }
 
@@ -126,11 +126,8 @@ async function validateSeatReservation(req, res, next) {
     });
   }
 
-  // get the foundTable
   const { table } = res.locals;
   const { reservation_id } = req.body.data;
-
-  // try to find the reservation for incoming reservation_id
   const reservation = await service.getReservationById(Number(reservation_id));
 
   // if no reservation found for provided id then throw error
@@ -164,12 +161,11 @@ async function validateSeatReservation(req, res, next) {
       message: "Table is already occupied.",
     });
   }
-  // if validation checks pass, move on to 'update()'
   next();
 }
 
 /**
- * 
+ * Get list of table
  * @param {*} req 
  * @param {*} res 
  * @param {*} next 
@@ -179,9 +175,8 @@ async function list(req, res, next) {
   res.json({ data });
 }
 
-
 /**
- * 
+ *  Post Table 
  * @param {*} req 
  * @param {*} res 
  * @param {*} next 
@@ -195,7 +190,7 @@ async function create(req, res, next) {
 }
 
 /**
- * 
+ * Reserve table by reservation id
  * @param {*} req 
  * @param {*} res 
  * @param {*} next 
