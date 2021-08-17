@@ -2,7 +2,6 @@ import { func } from 'prop-types';
 import React, {useState} from 'react';
 import { useHistory } from "react-router-dom";
 import ErrorAlert from '../layout/ErrorAlert';
-import {createTable} from "../utils/api"
 
 function NewTableForm(props) {
   const {handleNewTable} = props;
@@ -18,7 +17,6 @@ function NewTableForm(props) {
 
       // handle change
       function handleChange(event) {
-        // setError(null);
         let value = event.target.value;
         if(event.target.name === "capacity") {
             value = Number(event.target.value)
@@ -30,13 +28,6 @@ function NewTableForm(props) {
             };
           });
       }
-
-     
-
-      // function handleSubmit(event) {
-      //   event.preventDefault();
-      //   handleNewTable(formData);
-      // }
 
       function handleTableFormValidation() {
         const errors = [];
@@ -88,26 +79,6 @@ function NewTableForm(props) {
         if(formHasErrors) return 
         handleNewTable(formData)
       }
-
-      //Handle submit
-      // function handleSubmit(event) {
-      //   const errors = [];
-      //   event.preventDefault();
-      //   if (formData.table_name.length <= 1) {
-      //     errors.push({
-      //       message: "Table Name must be atleast 2 characters long."
-      //     })
-      //     setError(errors)
-      //   } else {
-      //     // setError(null)
-      //     createTable(formData)
-      //     .then(() => setFormData({...initialFormData}))
-      //     .then(() => history.push("/dashboard"))
-      //     .catch(setError);
-      //     //handleNewTable(formData);
-      //   }
-        
-      //}
 
       // handle cancel
       function handleCancel() {
