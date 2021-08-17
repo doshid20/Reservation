@@ -41,7 +41,7 @@ const create = (newReservation) => {
  * @returns 
  */
 const read = (reservation_id) => {
-  return knex("reservations").select("*").where({ reservation_id }).first();
+  return knex("reservations").select("*").where({ reservation_id }).first()
 };
 
 /**
@@ -81,8 +81,7 @@ function update(reservation_id, {...updatedReservation}) {
     .where({ reservation_id: Number(reservation_id) }, '*')
     .update(updatedReservation)
     .then(() => updatedReservation);
-    //console.log(temp);
-    // return temp;
+   
 }
 
 module.exports = {
