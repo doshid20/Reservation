@@ -1,4 +1,4 @@
-import { func } from 'prop-types';
+// import { func } from 'prop-types';
 import React, {useState} from 'react';
 import { useHistory } from "react-router-dom";
 import ErrorAlert from '../layout/ErrorAlert';
@@ -17,7 +17,7 @@ function NewTableForm(props) {
 
       // handle change
       function handleChange(event) {
-        let value = event.target.value;
+        let value;
         if(event.target.name === "capacity") {
             value = Number(event.target.value)
         } 
