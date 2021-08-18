@@ -11,16 +11,16 @@ function NewTableForm(props) {
         capacity: "0",
       };
       const history = useHistory();
-      const [error, setError] = useState(null);
+      //const [error, setError] = useState(null);
       const [formData, setFormData] = useState({ ...initialFormData });
       const [validationErrors, setValidationErrors] = useState(null)
 
       // handle change
       function handleChange(event) {
-        let value;
-        if(event.target.name === "capacity") {
-            value = Number(event.target.value)
-        } 
+        //let value;
+        // if(event.target.name === "capacity") {
+        //     value = Number(event.target.value)
+        // } 
         setFormData((currentFormData) => {
             return {
               ...currentFormData,
@@ -90,7 +90,7 @@ function NewTableForm(props) {
             <div>
             <h1 className="header">New Table</h1>
             </div>
-        <ErrorAlert errors={error} />
+        <ErrorAlert errors={validationErrors} />
         <form onSubmit={handleSubmit} className="row g-3">
         <div className="col-md-8">
           <label htmlFor="table_name" className="form-label">
