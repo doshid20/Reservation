@@ -42,7 +42,7 @@ function ReservationForm(props) {
                 })
             })
             .then(() => setIsEdit(true))
-            .catch(setError);
+            .catch(setError) 
         } else {
                 setFormData({
                   first_name: "",
@@ -113,7 +113,7 @@ function ReservationForm(props) {
 
     //change handler
     function handleChange(event) {
-        setError(null);
+        setError(error);
         let value = event.target.value;
         if (event.target.name === "people") {
             value = Number(event.target.value)
