@@ -81,10 +81,16 @@ function NewTableForm(props) {
 
     return (
         <div>
-            <div>
+          <div>
             <h1 className="header">New Table</h1>
+          </div>
+
+            <div id="reservation_time_help" className="form-text col-md-8">
+              {<p> ** All fields are required. </p>}
             </div>
+
         <ErrorAlert errors={validationErrors} />
+        
         <form onSubmit={handleSubmit} className="row g-3">
         <div className="col-md-8">
           <label htmlFor="table_name" className="form-label">
