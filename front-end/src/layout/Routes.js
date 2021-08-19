@@ -42,7 +42,7 @@ function Routes() {
       .then(setReservations)
       .then(() => fetchTables(abortController.signal))
       .then(setTables)
-      .catch(setErrors);
+      .catch((error) => setErrors([error]));
     return () => abortController.abort();
   }
 
@@ -86,7 +86,7 @@ function Routes() {
         .then(() => setIsClicked(!isClicked))
         .then(() => listReservations({ date }))
         .then(() => history.push(`/dashboard?date=${date}`))
-        .catch(setErrors);
+        .catch((error) => setErrors([error]));
     }
   }
 
@@ -145,7 +145,7 @@ function Routes() {
         .then(() => setIsClicked(!isClicked))
         .then(() => fetchTables())
         .then(() => history.push(`/dashboard?date=${date}`))
-        .catch(setErrors);
+        .catch((error) => setErrors([error]));;
     }
   }
 
