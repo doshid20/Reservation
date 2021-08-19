@@ -133,20 +133,18 @@ function ReservationForm(props) {
 
     //handle Edit reservation
     function handleEdit() {
-        //event.preventDefault();
         editReservation(reservation_id, formData)
         .then(() => handleUpdateReservation(formData), error => setError(error))
         .then(() => history.push("/dashboard"))
-        // .catch(handleFormValidation);
+ 
     }
 
     //handle new reservation
     function handleCreate() {
-        //event.preventDefault();
         createReservation(formData)
        .then(() => handleNewReservation(formData), error => setError(error))
        .then(() => history.push("/dashboard"))
-      //  .catch(handleFormValidation);
+     
     }
 
     function handleReservationValidation(event) {
