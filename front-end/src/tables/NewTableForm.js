@@ -1,4 +1,3 @@
-// import { func } from 'prop-types';
 import React, {useState} from 'react';
 import { useHistory } from "react-router-dom";
 import ErrorAlert from '../layout/ErrorAlert';
@@ -11,16 +10,11 @@ function NewTableForm(props) {
         capacity: "0",
       };
       const history = useHistory();
-      //const [error, setError] = useState(null);
       const [formData, setFormData] = useState({ ...initialFormData });
       const [validationErrors, setValidationErrors] = useState(null)
 
       // handle change
       function handleChange(event) {
-        //let value;
-        // if(event.target.name === "capacity") {
-        //     value = Number(event.target.value)
-        // } 
         setFormData((currentFormData) => {
             return {
               ...currentFormData,
