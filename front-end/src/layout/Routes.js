@@ -67,10 +67,12 @@ function Routes() {
   }
 
   function handleNewTable(newTable) {
-    createTable(newTable)
+    const abortController = new AbortController();
+    createTable(newTable, abortController.signal)
     .then(() => setTables((prevState) => [...prevState, newTable]))
     .then(() => history.push("/dashboard"))
     .catch((error) => setErrors([error]));
+    return () => abortController.abort();
   }
 
   function handleDate(newDate) {

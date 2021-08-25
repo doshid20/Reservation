@@ -22,7 +22,7 @@ function Seat(props) {
   }
 
   function handleCancel() {
-    console.log("+++++++ GO BACK ++++++", history.goBack() )
+    //console.log("+++++++ GO BACK ++++++", history.goBack() )
     history.goBack();
   }
 

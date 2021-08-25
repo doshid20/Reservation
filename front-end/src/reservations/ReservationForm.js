@@ -30,7 +30,8 @@ function ReservationForm(props) {
 
     useEffect(() => {
         if(reservation_id) {
-            fetchReservation(reservation_id)
+          const abortController = new AbortController();
+            fetchReservation(reservation_id, abortController.signal)
             .then((reservation) => {
                 setFormData({
                 first_name: reservation.first_name,
@@ -43,6 +44,7 @@ function ReservationForm(props) {
             })
             .then(() => setIsEdit(true))
             .catch(setError) 
+            return () => abortController.abort();
         } else {
                 setFormData({
                   first_name: "",
@@ -133,18 +135,21 @@ function ReservationForm(props) {
 
     //handle Edit reservation
     function handleEdit() {
-        editReservation(reservation_id, formData)
+      const abortController = new AbortController();
+        editReservation(reservation_id, formData, abortController.signal)
         .then(() => handleUpdateReservation(formData), error => setError(error))
         .then(() => history.push("/dashboard"))
+        return () => abortController.abort();
  
     }
 
     //handle new reservation
     function handleCreate() {
-        createReservation(formData)
+      const abortController = new AbortController();
+        createReservation(formData, abortController.signal)
        .then(() => handleNewReservation(formData), error => setError(error))
        .then(() => history.push("/dashboard"))
-     
+       return () => abortController.abort();
     }
 
     function handleReservationValidation(event) {
