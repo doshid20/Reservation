@@ -122,7 +122,8 @@ function Routes() {
       "Is this table ready to seat new guests? This cannot be undone."
     );
     if (confirmed) {
-      deleteTable(tableId)
+      const abortController = new AbortController();
+      deleteTable(tableId, abortController.signal)
         .then(() => {
           const table = tables.find(
             (table) => Number(table.table_id) === Number(tableId)
@@ -148,6 +149,7 @@ function Routes() {
         .then(() => fetchTables())
         .then(() => history.push(`/dashboard?date=${date}`))
         .catch((error) => setErrors([{...error, id: 'UnAssTabErr'}]));
+        return () => abortController.abort();
     }
   }
 
