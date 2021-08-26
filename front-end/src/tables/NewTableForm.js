@@ -29,6 +29,7 @@ function NewTableForm(props) {
         //check table name
         if (formData.table_name === "") {
             errors.push({
+              id: "ValErrTab-1",
               message: "Table Name cannot be empty.",
             });
         }
@@ -36,6 +37,7 @@ function NewTableForm(props) {
         //check table name length
         if (formData.table_name.length < 2) {
             errors.push({
+              id: "ValErrTab-2",
               message: "Table Name must be atleast 2 characters long.",
             });
 
@@ -45,12 +47,14 @@ function NewTableForm(props) {
         if (formData.capacity === "") {
              // check if capacity is not empty
             errors.push({
+              id: "ValErrTab-3",
               message: "Capacity must not be left empty.",
             });
             
           } else if (isNaN(formData.capacity)) {
             // check if capacity is a number
             errors.push({
+              id: "ValErrTab-4",
               message: "Capacity must be a number.",
             });
            
@@ -58,6 +62,7 @@ function NewTableForm(props) {
             // check if capacity is atleast 1
             if (Number(formData.capacity) < 1) {
               errors.push({
+                id: "ValErrTab-5",
                 message: "Capacity must be atleast 1.",
               });
              

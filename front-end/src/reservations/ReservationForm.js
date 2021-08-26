@@ -74,12 +74,14 @@ function ReservationForm(props) {
         //check if it is truesday
         if (day === 2) {
             errors.push({
+                id: "ValErr-1",
                 message: "Reservation date cannot fall on a Tuesday.",
             })
         }
         //check reservation date is in past
         if (date && currentTime > Date.parse(`${date} ${time}`) ) {
             errors.push({
+              id: "ValErr-2",
                 message:
                 "Cannot make a reservation in the past. Select a future date.",
             })
@@ -88,6 +90,7 @@ function ReservationForm(props) {
         // check before restaurnat open
         if (hours < 10 || (hours === 10 && mins < 30)) {
           errors.push({
+            id: "ValErr-3",
             message: "Cannot reserve a time before 10 am.",
           });
         }
@@ -96,6 +99,7 @@ function ReservationForm(props) {
         if ((hours === 21 && mins > 30) || (hours === 22 && mins < 30)) {
 
             errors.push({
+              id: "ValErr-4",
                 message: "Cannot reserve a time after 9:30 PM. Too close to closing time.",
               });
 
@@ -104,6 +108,7 @@ function ReservationForm(props) {
         //check after closing time
         if (hours > 22 || (hours === 22 && mins >= 30)) {
             errors.push({
+              id: "ValErr-5",
                 message: "Cannot reserve a time after 10:30 PM. Restaurant closes at 10:30 PM.",
               });
         

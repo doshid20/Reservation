@@ -10,18 +10,20 @@ import ErrorAlert from '../layout/ErrorAlert'
 function Search() {
     const [isCancelled, setIsCancelled] = useState(false);
     const [reservations, setReservations] = useState(null);
-    const [mobileNumber, setMobileNumber] = useState(null);
+    const [mobileNumber, setMobileNumber] = useState("");
     const [errors, setErrors] = useState(null);
 
     useEffect(loadReservationByNumber, [mobileNumber, isCancelled])
     
     function loadReservationByNumber() {
-        const abortController = new AbortController();
-        setErrors(null);
-        listReservationsByNumber(mobileNumber, abortController.signal)
-            .then(setReservations)
-            .catch((err) => setErrors([err]));
-            return () => abortController.abort();
+      setErrors(null);
+      if (mobileNumber === "") return;
+
+      const abortController = new AbortController();
+      listReservationsByNumber(mobileNumber, abortController.signal)
+          .then(setReservations)
+          .catch((err) => setErrors([err]));
+          return () => abortController.abort();
     }
 
     function handleSearch(event, mobileNumber) {

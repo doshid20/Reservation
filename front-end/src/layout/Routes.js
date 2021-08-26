@@ -42,7 +42,7 @@ function Routes() {
       .then(setReservations)
       .then(() => fetchTables(abortController.signal))
       .then(setTables)
-      .catch((error) => setErrors([error]));
+      .catch((error) => setErrors([{message: "something went wrong", id: 'ResTabErr'}]));
     return () => abortController.abort();
   }
 
@@ -71,7 +71,7 @@ function Routes() {
     createTable(newTable, abortController.signal)
     .then(() => setTables((prevState) => [...prevState, newTable]))
     .then(() => history.push("/dashboard"))
-    .catch((error) => setErrors([error]));
+    .catch((error) => setErrors([{...error, id: 'NewTabErr'}]));
     return () => abortController.abort();
   }
 
@@ -88,7 +88,7 @@ function Routes() {
         .then(() => setIsClicked(!isClicked))
         .then(() => listReservations({ date }))
         .then(() => history.push(`/dashboard?date=${date}`))
-        .catch((error) => setErrors([error]));
+        .catch((error) => setErrors([{...error, id: 'CancelResErr'}]));
     }
   }
 
@@ -114,7 +114,7 @@ function Routes() {
       )
       .then(() => setIsClicked(!isClicked))
       .then(() => history.push(`/dashboard?date=${date}`))
-      .catch((err) => setErrors([err]));
+      .catch((error) => setErrors([{...error, id: 'AssTabResErr'}]));
   }  
 
   function handleUnAssignTableToFinishReservation(tableId) {
@@ -147,7 +147,7 @@ function Routes() {
         .then(() => setIsClicked(!isClicked))
         .then(() => fetchTables())
         .then(() => history.push(`/dashboard?date=${date}`))
-        .catch((error) => setErrors([error]));;
+        .catch((error) => setErrors([{...error, id: 'UnAssTabErr'}]));
     }
   }
 

@@ -14,8 +14,8 @@ function ErrorAlert({errors} ) {
   }
   return (
       <div className="alert alert-danger mr-2">
-        {errors.map((err, index) => (
-          <div key={index}>
+        {errors.map((err) => (
+          <div key={err.id}>
             {err.message}
           </div>
         ))}
